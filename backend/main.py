@@ -31,17 +31,17 @@ def verify_api_key(request: Request):
 def ping():
     return {"status": "alive"}
 
-@app.post("/upload-resume/", dependencies=[Depends(verify_api_key)])
+@app.post("/upload-resume/")
 @limiter.limit("5/minute")
-async def upload_resume(request: Request):
+async def upload_resume(request: Request, _: None = Depends(verify_api_key)):
     return {"message": "Resume uploaded securely."}
 
-@app.post("/set-preferences/", dependencies=[Depends(verify_api_key)])
+@app.post("/set-preferences/")
 @limiter.limit("5/minute")
-async def set_preferences(request: Request):
-    return {"message": "Preferences set."}
+async def upload_resume(request: Request, _: None = Depends(verify_api_key)):
+    return {"message": "Resume uploaded securely."}
 
-@app.get("/jobs/", dependencies=[Depends(verify_api_key)])
+@app.get("/jobs/")
 @limiter.limit("10/minute")
-async def get_jobs():
+async def get_jobs(request: Request, _: None = Depends(verify_api_key)):
     return {"matched_jobs": [], "other_sources": []}
